@@ -9,6 +9,11 @@ img {
   object-fit: cover;
 }
 
+header {
+  display: flex;
+  place-content: center;
+}
+
 @media (min-width: 600px) {
   section {
     display: flex;
