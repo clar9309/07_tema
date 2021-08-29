@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <article id="dyr">
+      <h3></h3>
+      <img src="" alt="" />
+      <p>Type:</p>
+      <p>Levested:</p>
+    </article>
+
+    <script>
+      const object = {
+        navn: "gris",
+        type: "pattedyr",
+        levested: "svinefarm",
+        billede: "http://mabe-kea.dk/E19/pics/pig.png",
+      };
+
+      const destination = document.querySelector("#dyr");
+
+      const beskrivelse = `${object.navn}, ${object.type}, ${object.levested}`;
+
+      destination.querySelector("h3").textContent = object.navn;
+      destination.querySelector("p").textContent = object.type;
+      destination.querySelector("p").textContent = object.levested;
+      destination.querySelector("img").src = object.billede;
+    </script>
+  </body>
+</html>
