@@ -23,6 +23,7 @@
         height: auto;
         object-fit: cover;
       }
+
       article:hover {
         box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
           0 17px 50px 0 rgba(0, 0, 0, 0.19);
@@ -80,31 +81,30 @@
       }
 
       @media (min-width: 600px) {
-        main {
+        #liste {
           display: grid;
-          grid-template-columns: repeat(5, 1fr);
-          grid-template-rows: repeat(5, 1fr);
-          gap: 10px;
+          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+          grid-gap: 1em;
+          margin: 2em;
         }
       }
     </style>
   </head>
   <body>
-    <header>
-      <nav>
-        <button data-troende="alle" class="valgt">Alle</button>
-        <button data-troende="ja">Troende</button>
-        <button data-troende="nej">Ikke troende</button>
-        <button data-troende="tvivler">Tvivler</button>
-      </nav>
-    </header>
-    <section id="liste"></section>
+    <nav>
+      <button data-troende="alle" class="valgt">Alle</button>
+      <button data-troende="ja">Troende</button>
+      <button data-troende="nej">Ikke troende</button>
+      <button data-troende="tvivler">Tvivler</button>
+    </nav>
     <h1>Persongalleri</h1>
+
+    <section id="liste"></section>
     <main></main>
 
     <template>
-      <article>
-        <h2 class="fornavn"></h2>
+      <article class="person">
+        <h2 class="navn"></h2>
         <img src="" alt="" class="billede" />
         <p class="email"></p>
         <p class="fødselsdag"></p>
@@ -115,17 +115,7 @@
     </template>
 
     <script>
-      //Global værdi, personer, som indeholder vores JSON
-      let personer;
-      //Global variabel som indeholder det vi vil filtrere på, som i dette tilfælde er tro fra restdb.
-      let filter = "alle";
-
-      const main = document.querySelector("main");
-      const template = document.querySelector("template").content;
-      const destination = document.querySelector("#liste"); // container til articles med en person
-
-      //URL fra restdb JSON
-
+      const header = document.querySelector("header h1");
       const url = "https://persongalleri-5d3e.restdb.io/rest/persongalleri";
       const options = {
         headers: {
@@ -133,10 +123,17 @@
         },
       };
 
-      const filterKnapper = document.querySelectorAll("nav button");
-      filterKnapper.forEach((knap) =>
-        knap.addEventListener("click", filtrerPersoner)
-      );
+      document.addEventListener("DOMContentLoaded", start);
+      let personer;
+      let filter = "alle";
+
+      function start() {
+        const filterKnapper = document.querySelectorAll("nav button");
+        filterKnapper.forEach((knap) =>
+          knap.addEventListener("click", filtrerPersoner)
+        );
+        loadJSON();
+      }
 
       function filtrerPersoner() {
         filter = this.dataset.troende;
@@ -144,44 +141,31 @@
         visPersoner();
       }
 
-      //Fetch henter dataen og viser vores JSON
-
-      async function hentData() {
-        const respons = await fetch(url, options);
-        const json = await respons.json();
-        vis(json);
+      async function loadJSON() {
+        const JSONData = await fetch(url, options);
+        personer = await JSONData.json();
+        console.log("Personer", personer);
+        visPersoner();
       }
-      //Tager fat i navnene fra article, og giver dem en text content (hvad skal de indeholde)
 
-      function vis(json) {
-        destination.textContent = "";
-        json.forEach((person) => {
+      function visPersoner() {
+        const dest = document.querySelector("#liste");
+        const skabelon = document.querySelector("template").content;
+        dest.textContent = "";
+        personer.forEach((person) => {
           console.log("Troende", person.troende);
           if (filter == person.troende || filter == "alle") {
-            const klon = template.cloneNode(true);
-            klon.querySelector(".billede").src = "faces/" + person.billede;
-            klon.querySelector(".fornavn").textContent =
+            const klon = skabelon.cloneNode(true);
+            klon.querySelector(".navn").textContent =
               person.fornavn + " " + person.efternavn;
             klon.querySelector(".email").textContent = person.email;
             klon.querySelector(".fødselsdag").textContent = person.fødselsdag;
             klon.querySelector(".troende").textContent = person.troende;
-            main.appendChild(klon);
+            klon.querySelector(".billede").src = "faces/" + person.billede;
+            dest.appendChild(klon);
           }
         });
       }
-
-      hentData();
     </script>
   </body>
 </html>
-
-<!-- destination.textContent = "";
-        personer.forEach((person) => {
-          console.log("Troende", person.troende);
-          if (filter == person.troende || filter == "alle") {
-            const klon = template.cloneNode(true);
-            klon.querySelector(".navn").textContent =
-              person.fornavn + " " + person.efternavn;
-            klon.querySelector(".profil-billede").src =
-              "faces/" + person.billede;
-            destination.appendChild(klon); -->
