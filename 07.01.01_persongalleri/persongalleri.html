@@ -4,6 +4,12 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap"
+      rel="stylesheet"
+    />
     <title>Document</title>
 
     <style>
@@ -17,15 +23,16 @@
         height: auto;
         object-fit: cover;
       }
-
       article:hover {
         box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
           0 17px 50px 0 rgba(0, 0, 0, 0.19);
+        filter: grayscale(100%);
       }
 
       article {
         border: 2px solid gray;
         margin-bottom: 1rem;
+        padding: 1rem;
       }
 
       body {
@@ -33,6 +40,15 @@
         margin-right: 2rem;
       }
       h1 {
+        font-family: "Staatliches", cursive;
+        font-size: 3rem;
+      }
+
+      h2 {
+        font-family: sans-serif;
+      }
+
+      p {
         font-family: sans-serif;
       }
 
@@ -60,8 +76,18 @@
     </template>
 
     <script>
+
+        //Global værdi, personer, som indeholder vores JSON
+      let personer;
+      //Global variabel som indeholder det vi vil filtrere på, som i dette tilfælde er tro fra restdb. 
+      let filter = "ja";
+
+      
       const main = document.querySelector("main");
       const template = document.querySelector("template").content;
+
+
+      //URL fra restdb JSON 
 
       const url = "https://persongalleri-5d3e.restdb.io/rest/persongalleri";
       const options = {
@@ -70,11 +96,15 @@
         },
       };
 
+      //Fetch henter dataen og viser vores JSON
+
       async function hentData() {
         const respons = await fetch(url, options);
         const json = await respons.json();
         vis(json);
       }
+
+      //Tager fat i navnene fra article, og giver dem en text content (hvad skal de indeholde)
 
       function vis(json) {
         json.forEach((person) => {
