@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=¨, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <header>
+      <h1>Alle</h1>
+      <nav>
+        <button data-troende="alle" class="valgt">Alle</button>
+        <button data-troende="forret">Forretter</button>
+        <button data-troende="hovedretter">Hovedretter</button>
+        <button data-troende="desserter">Desserter</button>
+      </nav>
+    </header>
+
+    <section id="liste"></section>
+    <main></main>
+
+    <template>
+      <article class="retter">
+        <h2 class="navn"></h2>
+        <img src="" alt="" class="billede" />
+        <p class="pris"></p>
+        <p class="kortbeskrivelse"></p>
+        <p class="langbeskrivelse"></p>
+        <p class="oprindelsesreligion"></p>
+      </article>
+    </template>
+
+    <!-- <section id="popup">
+        <div id="luk">X</div>
+        <article>
+          <h2></h2>
+          <img src="" alt="" class="billede" />
+          <p>Email: <span class="email"></span></p>
+          <p>Fødselsdag: <span class="fødselsdag"></span></p>
+          <p>Troende: <span class="troende"></span></p>
+        </article>
+      </section> -->
+
+    <script>
+      const header = document.querySelector("header h1");
+      const url = "https://babushka-dd8a.restdb.io/rest/menu";
+      const options = {
+        headers: {
+          "x-apikey": "600ec2fb1346a1524ff12de4",
+        },
+      };
+
+      
+
+
+    </script>
+  </body>
+</html>
