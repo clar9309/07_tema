@@ -166,7 +166,10 @@
             klon.querySelector(".fødselsdag").textContent = person.fødselsdag;
             klon.querySelector(".troende").textContent = person.troende;
             klon.querySelector(".billede").src = "faces/" + person.billede;
-            dest.appendChild(klon);
+            // klon.querySelector("article").addEventListener("click", () => {
+            //   location.href = "http://kea.dk"; //kunne feks være i stedet "persongaller.html"+person._id
+            // });
+            main.appendChild(klon);
           }
         });
       }
