@@ -92,13 +92,14 @@
     </style>
   </head>
   <body>
+    <h1>Persongalleri</h1>
     <nav>
       <button data-troende="alle" class="valgt">Alle</button>
       <button data-troende="ja">Troende</button>
       <button data-troende="nej">Ikke troende</button>
       <button data-troende="tvivler">Tvivler</button>
     </nav>
-    <h1>Alle</h1>
+    <h2 class="tro">Alle</h2>
 
     <section id="liste"></section>
     <main></main>
@@ -166,10 +167,7 @@
             klon.querySelector(".fødselsdag").textContent = person.fødselsdag;
             klon.querySelector(".troende").textContent = person.troende;
             klon.querySelector(".billede").src = "faces/" + person.billede;
-            // klon.querySelector("article").addEventListener("click", () => {
-            //   location.href = "http://kea.dk"; //kunne feks være i stedet "persongaller.html"+person._id
-            // });
-            main.appendChild(klon);
+            dest.appendChild(klon);
           }
         });
       }
