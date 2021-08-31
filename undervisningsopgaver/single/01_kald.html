@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap"
+      rel="stylesheet"
+    />
+    <title>Document</title>
+
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      img {
+        display: block;
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
+
+      article:hover {
+        box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
+          0 17px 50px 0 rgba(0, 0, 0, 0.19);
+        filter: grayscale(100%);
+      }
+
+      article {
+        border: 2px solid gray;
+        margin-bottom: 1rem;
+        padding: 1rem;
+      }
+
+      body {
+        margin-left: 2rem;
+        margin-right: 2rem;
+      }
+      h1 {
+        font-family: "Staatliches", cursive;
+        font-size: 3rem;
+      }
+
+      h2 {
+        font-family: sans-serif;
+      }
+
+      p {
+        font-family: sans-serif;
+      }
+
+      button {
+        border: none;
+        color: black;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 20px;
+        transition-duration: 0.4s;
+        background-color: white;
+        font-family: sans-serif;
+        cursor: pointer;
+      }
+
+      button:hover {
+        border: 3px solid black;
+      }
+
+      /* button::after {
+        content: "";
+        width: 0%;
+        height: 0.2rem;
+        background: black;
+        display: block;
+        margin: auto;
+        transition: 0.5s;
+      }
+
+      button:hover::after {
+        width: 100%;
+      } */
+
+      .valgt {
+        border: 3px solid black;
+      }
+
+      @media (min-width: 600px) {
+        #liste {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+          grid-gap: 1em;
+          margin: 2em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Alle</h1>
+      <nav>
+        <button data-troende="alle" class="valgt">Alle</button>
+        <button data-troende="ja">Troende</button>
+        <button data-troende="nej">Ikke troende</button>
+        <button data-troende="tvivler">Tvivler</button>
+      </nav>
+    </header>
+
+    <section id="liste"></section>
+    <main></main>
+
+    <template>
+      <article class="person">
+        <h2 class="navn"></h2>
+        <img src="" alt="" class="billede" />
+        <p class="email"></p>
+        <p class="fødselsdag"></p>
+        <p class="troende"></p>
+        <p class="tvivler"></p>
+        <p class="ikke_troende"></p>
+      </article>
+    </template>
+
+    <section id="popup">
+      <div id="luk">X</div>
+      <article>
+        <h2></h2>
+        <img src="" alt="" />
+        <h3>Titel: <span class="titel"></span></h3>
+        <p>Email: <span class="email"></span></p>
+        <p>Fødselsdag: <span class="fødselsdag"></span></p>
+        <p>Hobby: <span class="hobby"></span></p>
+        <p>Troende: <span class="troende"></span></p>
+      </article>
+    </section>
+
+    <script>
+      const header = document.querySelector("header h1");
+      const url = "https://persongalleri-5d3e.restdb.io/rest/persongalleri";
+      const options = {
+        headers: {
+          "x-apikey": "600fe9211346a1524ff12e31",
+        },
+      };
+
+      document.addEventListener("DOMContentLoaded", start);
+      let personer;
+      let filter = "alle";
+
+      function start() {
+        const filterKnapper = document.querySelectorAll("nav button");
+        filterKnapper.forEach((knap) =>
+          knap.addEventListener("click", filtrerPersoner)
+        );
+        loadJSON();
+      }
+
+      function filtrerPersoner() {
+        filter = this.dataset.troende;
+        document.querySelector(".valgt").classList.remove("valgt");
+        this.classList.add("valgt");
+
+        visPersoner();
+
+        header.textContent = this.textContent;
+        console.log(this).textContent;
+      }
+
+      async function loadJSON() {
+        const JSONData = await fetch(url, options);
+        personer = await JSONData.json();
+        console.log("Personer", personer);
+        visPersoner();
+      }
+
+      function visPersoner() {
+        const dest = document.querySelector("#liste");
+        const skabelon = document.querySelector("template").content;
+        dest.textContent = "";
+        personer.forEach((person) => {
+          console.log("Troende", person.troende);
+          if (filter == person.troende || filter == "alle") {
+            const klon = skabelon.cloneNode(true);
+            klon.querySelector(".navn").textContent =
+              person.fornavn + " " + person.efternavn;
+            klon.querySelector(".email").textContent = person.email;
+            klon.querySelector(".fødselsdag").textContent = person.fødselsdag;
+            klon.querySelector(".troende").textContent = person.troende;
+            klon.querySelector(".billede").src = "faces/" + person.billede;
+            klon.querySelector("article").addEventListener("click", () => {
+              location.href = "02_detaljer.html" + person._id;
+            });
+            dest.appendChild(klon);
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

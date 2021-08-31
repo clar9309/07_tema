@@ -67,7 +67,11 @@
         cursor: pointer;
       }
 
-      button::after {
+      button:hover {
+        border: 3px solid black;
+      }
+
+      /* button::after {
         content: "";
         width: 0%;
         height: 0.2rem;
@@ -79,6 +83,10 @@
 
       button:hover::after {
         width: 100%;
+      } */
+
+      .valgt {
+        border: 3px solid black;
       }
 
       @media (min-width: 600px) {
@@ -140,6 +148,8 @@
 
       function filtrerPersoner() {
         filter = this.dataset.troende;
+        document.querySelector(".valgt").classList.remove("valgt");
+        this.classList.add("valgt");
 
         visPersoner();
 
@@ -168,6 +178,9 @@
             klon.querySelector(".fødselsdag").textContent = person.fødselsdag;
             klon.querySelector(".troende").textContent = person.troende;
             klon.querySelector(".billede").src = "faces/" + person.billede;
+            klon.querySelector("article").addEventListener("click", () => {
+              location.href = "single.html" + person._id;
+            });
             dest.appendChild(klon);
           }
         });
