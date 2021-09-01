@@ -43,11 +43,9 @@
       h1 {
         font-family: "Staatliches", cursive;
         font-size: 3rem;
-        text-align: center;
-        
       }
 
-      h3 {
+      h2 {
         font-family: sans-serif;
       }
 
@@ -118,7 +116,6 @@
         font-size: 2rem;
         cursor: pointer;
         color: white;
-        font-family: sans-serif;
       }
 
       @media (min-width: 600px) {
@@ -130,9 +127,9 @@
         }
       }
     </style>
-<h1>Bistro Babushka</h1>
+
     <header>
-        <h2>Alle</h2>
+        <h1>Alle</h1>
         <nav>
           <button data-kategori="alle" class="valgt">Alle</button>
           <button data-kategori="forretter">Forretter</button>
@@ -146,7 +143,7 @@
   
       <template>
         <article class="retter">
-          <h3 class="navn"></h3>
+          <h2 class="navn"></h2>
           <img src="" alt="" class="billede" />
           <p class="pris"></p>
           <p class="kortbeskrivelse"></p>
@@ -158,7 +155,7 @@
       <section id="popup">
         <div id="luk">X</div>
         <article>
-          <h3></h3>
+          <h2></h2>
           <img src="" alt="" class="billede"/>
           <p>Pris: <span class="pris"></span></p>
           <p>Kortbeskrivelse: <span class="kortbeskrivelse"></span></p>
@@ -168,7 +165,7 @@
     </header>
 
     <script>
-    const header = document.querySelector("header h2");
+    const header = document.querySelector("header h1");
       const url = "https://babushka-dd8a.restdb.io/rest/menu";
       const options = {
         headers: {
@@ -244,7 +241,7 @@
         const popup = document.querySelector("#popup");
         popup.style.display = "block";
         popup.querySelector("img").src = "medium/" + retter.billede;
-        popup.querySelector("h3").textContent = retter.navn; 
+        popup.querySelector("h2").textContent = retter.navn; 
         popup.querySelector(".pris").textContent = retter.pris;
         popup.querySelector(".kortbeskrivelse").textContent = retter.kortbeskrivelse;
         popup.querySelector(".langbeskrivelse").textContent = retter.langbeskrivelse;
