@@ -47,6 +47,7 @@
       body {
         margin-left: 2rem;
         margin-right: 2rem;
+
       }
       h1 {
         font-family: 'Quicksand', sans-serif;
@@ -93,7 +94,7 @@
         content: "";
         width: 0%;
         height: 0.2rem;
-        background: black;
+        background: red;
         display: block;
         margin: auto;
         transition: 0.5s;
@@ -104,7 +105,7 @@
       }
 
       .valgt {
-        text-decoration: underline 4px solid black;
+        text-decoration: underline 4px solid red;
     
       }
 
@@ -120,7 +121,7 @@
       }
 
       #popup article {
-        width: 80vw;
+        width: 50vw;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -273,7 +274,9 @@
         document.querySelector("#luk").addEventListener("click", () => (popup.style.display = "none"));
       }
 
-      loadJSON();
+      loadJSON(); 
+
+
     </script>
 
 
