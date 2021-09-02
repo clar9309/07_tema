@@ -4,20 +4,46 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300&display=swap"
+      rel="stylesheet"
+    />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Staatliches&display=swap"
       rel="stylesheet"
     />
-    <title>Document</title>
+    <title>Bistro Babushka</title>
 
     <style>
       * {
         box-sizing: border-box;
+      }
+
+      /* Burger menu */
+
+      /* Menuen er der stadig, men den er usynling */
+      /* Ved transform er den ude til venstre, dvs. hvis man fjerne transform og opacity, er de der stadig */
+      .hidden {
+        opacity: 0;
+        transform: translateX(100%);
+      }
+
+      #menuknap {
+        display: grid;
+        justify-content: center;
+        font-size: 3rem;
+      }
+
+      #menu button {
+        font-family: "Quicksand", sans-serif;
+        font-size: 1rem;
+        color: black;
+        padding: 10px;
+        font-weight: 100;
       }
 
       img {
@@ -25,12 +51,6 @@
         width: 100%;
         height: auto;
         object-fit: cover;
-        filter:grayscale(100%)
-      }
-
-      img:hover {
-        filter:grayscale(0%)
-
       }
 
       article:hover {
@@ -47,45 +67,56 @@
       body {
         margin-left: 2rem;
         margin-right: 2rem;
-
       }
       h1 {
-        font-family: 'Quicksand', sans-serif;
+        font-family: "Quicksand", sans-serif;
         font-size: 4rem;
         text-align: center;
-        font-weight: 300; 
-        
+        font-weight: 300;
+        text-decoration: none;
+        color: black;
+      }
+
+      a {
+        text-decoration: none;
+      }
+
+      .undertekst {
+        font-family: "Quicksand", sans-serif;
+        font-size: 1.5rem;
+        text-align: center;
+        font-weight: 300;
+        margin-top: -19px;
       }
 
       h2 {
-        font-family: 'Quicksand', sans-serif;
+        font-family: "Quicksand", sans-serif;
         text-align: center;
-        font-weight: 300; 
-
+        font-weight: 300;
       }
 
       h3 {
-        font-family: 'Quicksand', sans-serif;
-        font-weight: bold; 
+        font-family: "Quicksand", sans-serif;
+        font-weight: bold;
       }
 
       p {
-        font-family: 'Quicksand', sans-serif;
+        font-family: "Quicksand", sans-serif;
       }
 
       header {
-      display: flex; 
-      justify-content: center;
-    }
+        display: flex;
+        justify-content: center;
+      }
 
       button {
-        border: none; 
-        color: black; 
-        padding: 15px 32px; 
-        font-weight: 300; 
-        text-align: center; 
-        display: inline-block; 
-        font-size: 1rem; 
+        border: none;
+        color: black;
+        padding: 15px 32px;
+        font-weight: 300;
+        text-align: center;
+        display: inline-block;
+        font-size: 1rem;
         transition-duration: 0.4s;
         background-color: white;
       }
@@ -94,7 +125,7 @@
         content: "";
         width: 0%;
         height: 0.2rem;
-        background: red;
+        background: black;
         display: block;
         margin: auto;
         transition: 0.5s;
@@ -105,8 +136,7 @@
       }
 
       .valgt {
-        text-decoration: underline 4px solid red;
-    
+        text-decoration: underline 4px solid black;
       }
 
       #popup {
@@ -146,63 +176,120 @@
           grid-gap: 1em;
           margin: 2em;
         }
+        /* menuknap vises ikke når skærmen er større end 600px */
+        #menuknap {
+          display: none;
+          align-items: center;
+        }
+        /*id'et menu har klassen hidden, når skærmen er større en 600px, det vil sige at den ikke er
+        usynling længere*/
+
+        #menu.hidden {
+          transform: translateX(0);
+          opacity: 1;
+        }
+
+        /* Menuen ligger sig på linje i stor skærm */
+        #menu li {
+          display: inline-block;
+        }
+
+        .column {
+          flex: 1;
+          padding: 5px;
+        }
+        .row {
+          display: flex;
+        }
       }
     </style>
-<h1>bistro babushka</h1>
+  </head>
+  <body>
+    <a href="forside.html"><h1>bistro babushka.</h1></a>
+    <h1 class="undertekst">вкусный ресторан</h1>
     <header>
-        <nav>
+      <nav>
+        <div id="menuknap">☰</div>
+        <ul id="menu" class="hidden">
           <button data-kategori="alle" class="valgt">MENU</button>
           <button data-kategori="forretter">FORRETER</button>
           <button data-kategori="hovedretter">HOVEDRETTER</button>
           <button data-kategori="desserter">DESSERT</button>
           <button data-kategori="drikkevarer">DRIKKEVARER</button>
-        </nav>
-      </header>
-      <h2>MENU</h2>
-      <main></main>
-  
-      <section id="liste"></section>
-  
-      <template>
-        <article class="retter">
-          <h3 class="navn"></h3>
-          <img src="" alt="billede" />
-          <p class="pris"></p>
-          <p class="kortbeskrivelse"></p>
-          <p class="langbeskrivelse"></p>
-          <p class="oprindelsesregion"></p>
-        </article>
-      </template>
-  
-      <section id="popup">
-        <div id="luk">&#x2715</div>
-        <article>
-          <h3></h3>
-          <img src="" alt="" class="billede"/>
-          <p>Pris: <span class="pris"></span></p>
-          <p> <span class="langbeskrivelse"></span></p>
-          <p>Oprindelsesregion: <span class="oprindelsesregion"></span></p>
-        </article>
-      </section>
-   
+        </ul>
+      </nav>
+    </header>
+    <h2>MENU</h2>
+    <main></main>
+
+    <section id="liste"></section>
+
+    <template>
+      <article class="retter">
+        <h3 class="navn"></h3>
+        <img src="" alt="billede" />
+        <p class="pris"></p>
+        <p class="kortbeskrivelse"></p>
+      </article>
+    </template>
+
+    <section id="popup">
+      <div id="luk">X</div>
+      <!-- &#x2715 -->
+      <article>
+        <h3></h3>
+        <img src="" alt="" class="billede" />
+        <p>Pris: <span class="pris"></span></p>
+        <p><span class="langbeskrivelse"></span></p>
+        <p>Oprindelsesregion: <span class="oprindelsesregion"></span></p>
+      </article>
+    </section>
 
     <script>
+      // Lytter til siden er loadet
+      window.addEventListener("load", sidenVises);
 
-    const header = document.querySelector("h2");
+      function sidenVises() {
+        console.log("sidenVises");
+        document
+          .querySelector("#menuknap")
+          .addEventListener("click", toggleMenu);
+      }
+
+      //console log skriver en besked til konsollen - kan evt bruges til at teste
+      function toggleMenu() {
+        console.log("toggleMenu");
+        // toggle betyder at jeg kan tilføje noget hvis det ikke er der, eller fjerne det hvis det er der
+        document.querySelector("#menu").classList.toggle("hidden");
+
+        //Skjuler burger menu
+        let erSkjult = document
+          .querySelector("#menu")
+          .classList.contains("hidden");
+
+        //hvis den indeholder class hidden, og det er sandt, så skjuler den det. Og hvis den ikke indeholder hidden, så er det falsk.
+        if (erSkjult == true) {
+          document.querySelector("#menuknap").textContent = "☰";
+        } else {
+          document.querySelector("#menuknap").textContent = "✕";
+        }
+      }
+
+      const header = document.querySelector("h2");
       const url = "https://babushka-dd8a.restdb.io/rest/menu";
       const options = {
         headers: {
           "x-apikey": "600ec2fb1346a1524ff12de4",
         },
-      }; 
+      };
 
-    // -----------------------------------------------------------------------
+      // -----------------------------------------------------------------------
 
       document.addEventListener("DOMContentLoaded", start);
       let madretter;
       let filter = "alle";
 
-    //   -----------------------------------------------------------------------
+      //   -----------------------------------------------------------------------
 
       function start() {
         const filterKnapper = document.querySelectorAll("nav button");
@@ -212,9 +299,9 @@
         loadJSON();
       }
 
-    //   -----------------------------------------------------------------------
+      //   -----------------------------------------------------------------------
 
-    function filtrerRetter() {
+      function filtrerRetter() {
         filter = this.dataset.kategori;
         document.querySelector(".valgt").classList.remove("valgt");
         this.classList.add("valgt");
@@ -224,30 +311,31 @@
         header.textContent = this.textContent;
       }
 
-    //   -----------------------------------------------------------------------
-   
-        async function loadJSON() {
+      //   -----------------------------------------------------------------------
+
+      async function loadJSON() {
         const JSONData = await fetch(url, options);
         madretter = await JSONData.json();
         visRetter();
       }
 
-     //   -----------------------------------------------------------------------
- 
-     function visRetter() {
+      //   -----------------------------------------------------------------------
+
+      function visRetter() {
         const dest = document.querySelector("#liste");
-        const skabelon = document.querySelector("template").content; 
+        const skabelon = document.querySelector("template").content;
         dest.textContent = "";
         madretter.forEach((retter) => {
           if (filter == retter.kategori || filter == "alle") {
             const klon = skabelon.cloneNode(true);
             const md = "-md.jpg";
-            klon.querySelector(".navn").textContent =
-              retter.navn; 
-            klon.querySelector(".pris").textContent = "Pris: " + retter.pris + ",-";
-            klon.querySelector(".kortbeskrivelse").textContent = retter.kortbeskrivelse;
-            klon.querySelector(".langbeskrivelse").textContent = retter.langbeskrivelse;
-            klon.querySelector(".oprindelsesregion").textContent = retter.oprindelsesregion;
+            klon.querySelector(".navn").textContent = retter.navn;
+            klon.querySelector(".pris").textContent =
+              "Pris: " + retter.pris + ",-";
+            klon.querySelector(".kortbeskrivelse").textContent =
+              retter.kortbeskrivelse;
+            // klon.querySelector(".langbeskrivelse").textContent = retter.langbeskrivelse;
+            // klon.querySelector(".oprindelsesregion").textContent = retter.oprindelsesregion;
             klon.querySelector("img").src = "medium/" + retter.billednavn + md;
             klon
               .querySelector("article")
@@ -257,29 +345,27 @@
         });
       }
 
-           //   -----------------------------------------------------------------------
-
+      //   -----------------------------------------------------------------------
 
       function visDetaljer(retter) {
         console.log(retter);
-        const md = "-md.jpg"; 
+        const md = "-md.jpg";
         const popup = document.querySelector("#popup");
         popup.style.display = "block";
         popup.querySelector("img").src = "medium/" + retter.billednavn + md;
-        popup.querySelector("h3").textContent = retter.navn; 
+        popup.querySelector("h3").textContent = retter.navn;
         popup.querySelector(".pris").textContent = retter.pris + ",-";
         // popup.querySelector(".kortbeskrivelse").textContent = retter.kortbeskrivelse;
-        popup.querySelector(".langbeskrivelse").textContent = retter.langbeskrivelse;
-        popup.querySelector(".oprindelsesregion").textContent = retter.oprindelsesregion;
-        document.querySelector("#luk").addEventListener("click", () => (popup.style.display = "none"));
+        popup.querySelector(".langbeskrivelse").textContent =
+          retter.langbeskrivelse;
+        popup.querySelector(".oprindelsesregion").textContent =
+          retter.oprindelsesregion;
+        document
+          .querySelector("#luk")
+          .addEventListener("click", () => (popup.style.display = "none"));
       }
 
-      loadJSON(); 
-
-
+      loadJSON();
     </script>
-
-
-    
   </body>
 </html>
